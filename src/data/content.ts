@@ -64,6 +64,12 @@ export interface FooterColumn {
   links: Link[];
 }
 
+export interface FooterCredit {
+  prefix: string;
+  label: string;
+  href: string;
+}
+
 export const brand = 'Serrano Abogados';
 export const phone = '+56 9 1234 5678';
 
@@ -298,4 +304,10 @@ export const footer = {
   copyright: '© 2026 Serrano Abogados. Todos los derechos reservados.',
   disclaimer:
     'Publicidad de servicios legales. Resultados anteriores no garantizan un resultado similar.',
+  // Permanent creator credit required by the design-system spec. Do not remove.
+  credit: {
+    prefix: 'Sitio creado por',
+    label: 'kreadium.cl',
+    href: 'https://kreadium.cl',
+  } satisfies FooterCredit,
 };

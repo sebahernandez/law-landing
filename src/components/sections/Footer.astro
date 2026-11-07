@@ -1,7 +1,7 @@
 ---
 import Container from '../ui/Container.astro';
 import Logo from '../ui/Logo.astro';
-import type { FooterColumn } from '../../data/content';
+import type { FooterColumn, FooterCredit } from '../../data/content';
 
 interface Props {
   brand: string;
@@ -9,9 +9,10 @@ interface Props {
   columns: FooterColumn[];
   copyright: string;
   disclaimer: string;
+  credit: FooterCredit;
 }
 
-const { brand, description, columns, copyright, disclaimer } = Astro.props;
+const { brand, description, columns, copyright, disclaimer, credit } = Astro.props;
 ---
 
 <footer class="bg-brand-900 on-dark pt-16 pb-8 lg:pt-20">
@@ -43,10 +44,21 @@ const { brand, description, columns, copyright, disclaimer } = Astro.props;
     </div>
 
     <div
-      class="border-on-dark-line text-on-dark-muted mt-12 flex flex-col gap-3 border-t pt-8 text-sm leading-normal lg:flex-row lg:justify-between"
+      class="border-on-dark-line text-on-dark-muted mt-12 flex flex-col gap-3 border-t pt-8 text-sm leading-normal lg:flex-row lg:flex-wrap lg:items-center lg:justify-between lg:gap-x-8"
     >
       <p>{copyright}</p>
       <p>{disclaimer}</p>
+      <p class="flex min-h-11 items-center gap-1.5 lg:basis-full">
+        <span>{credit.prefix}</span>
+        <a
+          href={credit.href}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex min-h-11 items-center px-0.5 text-white underline-offset-4 hover:underline"
+        >
+          {credit.label}
+        </a>
+      </p>
     </div>
   </Container>
 </footer>
