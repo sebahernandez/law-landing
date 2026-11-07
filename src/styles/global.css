@@ -36,7 +36,13 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    /* Keep anchor targets below the sticky header (80px + 1px border; 100px + 1px at xl). */
+    scroll-padding-top: 81px;
     -webkit-text-size-adjust: 100%;
+
+    @media (width >= 80rem) {
+      scroll-padding-top: 101px;
+    }
   }
 
   body {
