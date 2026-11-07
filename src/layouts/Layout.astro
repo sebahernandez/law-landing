@@ -13,6 +13,8 @@ const {
   title = 'Serrano Abogados | Abogado independiente en familia, penal y civil',
   description = 'Abogado independiente en derecho de familia, defensa penal y demandas civiles. Agenda una consulta gratuita y recibe representación legal personal y directa.',
 } = Astro.props;
+
+const asset = (file: string) => `${import.meta.env.BASE_URL}/${file}`.replace(/\/+/g, '/');
 ---
 
 <!doctype html>
@@ -27,7 +29,10 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_CL" />
     <meta name="theme-color" content="#0f3d35" />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`.replace(/\/+/g, "/")} />
+    <link rel="icon" href={asset('favicon.ico')} sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href={asset('favicon.svg')} />
+    <link rel="apple-touch-icon" href={asset('apple-touch-icon.png')} />
+    <link rel="manifest" href={asset('site.webmanifest')} />
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
