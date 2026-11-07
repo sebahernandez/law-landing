@@ -145,6 +145,44 @@ const asset = (file: string) => `${import.meta.env.BASE_URL}/${file}`.replace(/\
         );
         counters.forEach((el) => countObserver.observe(el));
       }
+
+      // Legal dialogs: any in-page link whose fragment matches a dialog id opens it.
+      const legalDialogs = new Map(
+        [...document.querySelectorAll<HTMLDialogElement>('dialog[data-legal-dialog]')].map((d) => [d.id, d]),
+      );
+      if (legalDialogs.size > 0) {
+        const clearUrl = () => history.replaceState(null, '', location.pathname + location.search);
+        const openLegal = (id: string) => {
+          const dialog = legalDialogs.get(id);
+          if (!dialog || dialog.open) return false;
+          dialog.showModal();
+          history.replaceState(null, '', `#${id}`);
+          return true;
+        };
+        const openFromHash = () => openLegal(decodeURIComponent(location.hash.slice(1)));
+
+        document.addEventListener('click', (event) => {
+          const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
+          if (link && legalDialogs.has(link.hash.slice(1))) {
+            event.preventDefault();
+            openLegal(link.hash.slice(1));
+          }
+        });
+
+        legalDialogs.forEach((dialog) => {
+          dialog.querySelector('[data-legal-close]')?.addEventListener('click', () => dialog.close());
+          // The dialog has no padding, so a click on the element itself is a backdrop click.
+          dialog.addEventListener('click', (event) => {
+            if (event.target === dialog) dialog.close();
+          });
+          dialog.addEventListener('close', () => {
+            if (legalDialogs.has(location.hash.slice(1))) clearUrl();
+          });
+        });
+
+        window.addEventListener('hashchange', openFromHash);
+        openFromHash();
+      }
     </script>
   </body>
 </html>

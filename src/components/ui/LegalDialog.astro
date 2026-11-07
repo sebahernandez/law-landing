@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+import type { LegalDocument } from '../../data/legal';
+
+interface Props {
+  doc: LegalDocument;
+}
+
+const { doc } = Astro.props;
+const titleId = `${doc.id}-title`;
+---
+
+<dialog id={doc.id} aria-labelledby={titleId} data-legal-dialog class="legal-dialog">
+  <div class="flex max-h-[inherit] flex-col overflow-hidden rounded-lg bg-white shadow-2xl">
+    <header class="border-line-200 flex items-center justify-between gap-4 border-b py-3 pr-3 pl-6 sm:pl-8">
+      <h2 id={titleId} class="text-[1.375rem] leading-tight font-medium sm:text-2xl">{doc.title}</h2>
+      <button
+        type="button"
+        data-legal-close
+        aria-label="Cerrar"
+        class="text-ink-900 hover:bg-cream-100 inline-flex size-11 shrink-0 items-center justify-center rounded-md transition-colors motion-reduce:transition-none"
+      >
+        <Icon name="x" size={22} />
+      </button>
+    </header>
+    <div class="min-h-0 overflow-y-auto overscroll-contain px-6 py-6 sm:px-8 sm:py-8">
+      <p class="text-ink-600 text-sm">Última actualización: {doc.updated}</p>
+      {
+        doc.sections.map((section) => (
+          <section class="mt-6">
+            <h3 class="text-lg leading-snug font-medium">{section.heading}</h3>
+            {section.paragraphs.map((paragraph) => (
+              <p class="mt-2 text-[15px] leading-[1.7]">{paragraph}</p>
+            ))}
+          </section>
+        ))
+      }
+    </div>
+  </div>
+</dialog>

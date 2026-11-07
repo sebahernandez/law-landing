@@ -295,9 +295,9 @@ export const footer = {
     {
       title: 'Legal',
       links: [
-        { label: 'Política de privacidad', href: '#' },
-        { label: 'Términos de uso', href: '#' },
-        { label: 'Aviso legal', href: '#' },
+        { label: 'Política de privacidad', href: '#politica-de-privacidad' },
+        { label: 'Términos de uso', href: '#terminos-de-uso' },
+        { label: 'Aviso legal', href: '#aviso-legal' },
       ],
     },
   ] satisfies FooterColumn[],

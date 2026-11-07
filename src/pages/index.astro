@@ -10,7 +10,9 @@ import Testimonials from '../components/sections/Testimonials.astro';
 import Faq from '../components/sections/Faq.astro';
 import Contact from '../components/sections/Contact.astro';
 import Footer from '../components/sections/Footer.astro';
+import LegalDialog from '../components/ui/LegalDialog.astro';
 import * as content from '../data/content';
+import { legalDocuments } from '../data/legal';
 ---
 
 <Layout>
@@ -26,4 +28,5 @@ import * as content from '../data/content';
     <Contact {...content.contact} />
   </main>
   <Footer brand={content.brand} {...content.footer} />
+  {legalDocuments.map((doc) => <LegalDialog doc={doc} />)}
 </Layout>

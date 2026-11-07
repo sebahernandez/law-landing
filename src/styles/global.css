@@ -112,6 +112,81 @@ html.js [data-reveal].is-visible {
   display: none;
 }
 
+/* Legal dialogs (native <dialog> opened with showModal()). */
+.legal-dialog {
+  width: min(42rem, 100vw - 2rem);
+  max-width: none;
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-ink-600);
+  overflow: visible;
+  opacity: 0;
+  translate: 0 8px;
+  transition:
+    opacity 200ms ease,
+    translate 200ms ease,
+    overlay 200ms ease allow-discrete,
+    display 200ms ease allow-discrete;
+}
+
+.legal-dialog[open] {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.legal-dialog::backdrop {
+  background: transparent;
+  transition:
+    background-color 200ms ease,
+    overlay 200ms ease allow-discrete,
+    display 200ms ease allow-discrete;
+}
+
+.legal-dialog[open]::backdrop {
+  background: color-mix(in oklab, var(--color-brand-900) 60%, transparent);
+}
+
+@starting-style {
+  .legal-dialog[open] {
+    opacity: 0;
+    translate: 0 8px;
+  }
+
+  .legal-dialog[open]::backdrop {
+    background: transparent;
+  }
+}
+
+/* Focus lands on the close button; the dialog box itself needs no ring. */
+.legal-dialog:focus,
+.legal-dialog:focus-visible {
+  outline: none;
+}
+
+html:has(dialog[open]:modal) {
+  overflow: hidden;
+}
+
+/* No-JS fallback: a fragment link shows the document inline as a page section. */
+html:not(.js) .legal-dialog:target {
+  display: block;
+  position: static;
+  width: auto;
+  max-width: 48rem;
+  max-height: none;
+  margin: 3rem auto;
+  padding-inline: 1rem;
+  opacity: 1;
+  translate: none;
+}
+
+html:not(.js) .legal-dialog [data-legal-close] {
+  display: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -128,6 +203,11 @@ html.js [data-reveal].is-visible {
   }
 
   .faq-item::details-content {
+    transition: none;
+  }
+
+  .legal-dialog,
+  .legal-dialog::backdrop {
     transition: none;
   }
 }
