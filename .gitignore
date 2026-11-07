@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # local AI tooling cache
 .atl/
+
+# build archives for manual hosting uploads
+*.zip
