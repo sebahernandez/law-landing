@@ -1,0 +1,14 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from '../../data/content';
+
+interface Props {
+  icon: IconName;
+}
+
+const { icon } = Astro.props;
+---
+
+<div class="border-brand-800 text-brand-800 flex size-12 items-center justify-center rounded-md border">
+  <Icon name={icon} size={22} />
+</div>

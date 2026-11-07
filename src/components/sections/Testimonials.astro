@@ -1,0 +1,40 @@
+---
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { Testimonial } from '../../data/content';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  cards: Testimonial[];
+}
+
+const { eyebrow, title, cards } = Astro.props;
+---
+
+<section id="testimonios" aria-labelledby="testimonials-title" class="bg-white py-20 lg:py-28">
+  <Container>
+    <SectionHeading id="testimonials-title" eyebrow={eyebrow} title={title} class="max-w-[40rem]" />
+    <div class="mt-12 grid gap-5 md:grid-cols-2 lg:mt-16 lg:grid-cols-3">
+      {
+        cards.map((card) => (
+          <div data-reveal class="flex md:last:col-span-2 lg:last:col-span-1">
+            <figure class="bg-cream-100 flex w-full flex-col rounded-lg p-8 md:p-10">
+              <div class="text-gold-500 flex gap-1.5" role="img" aria-label="5 de 5 estrellas">
+                {[0, 1, 2, 3, 4].map(() => <Icon name="star" size={16} />)}
+              </div>
+              <blockquote class="text-ink-900 mt-8 font-serif text-lg leading-[1.6] italic">
+                {card.quote}
+              </blockquote>
+              <figcaption class="mt-auto pt-8">
+                <p class="text-ink-900 font-semibold">{card.name}</p>
+                <p class="text-ink-600 text-sm leading-normal">{card.caseType}</p>
+              </figcaption>
+            </figure>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

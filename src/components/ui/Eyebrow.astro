@@ -1,0 +1,19 @@
+---
+interface Props {
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+
+const { tone = 'light', class: className, ...rest } = Astro.props;
+---
+
+<p
+  {...rest}
+  class:list={[
+    'font-sans text-xs leading-[1.4] font-semibold tracking-[0.2em] uppercase',
+    tone === 'dark' ? 'text-gold-500' : 'text-brand-800',
+    className,
+  ]}
+>
+  <slot />
+</p>

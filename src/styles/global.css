@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-900: #0a2b24;
+  --color-brand-800: #0f3d35;
+  --color-brand-700: #165046;
+  --color-gold-500: #c4a86f;
+  --color-cream-100: #f3ede1;
+  --color-paper-50: #f9f8f3;
+  --color-ink-900: #161a1b;
+  --color-ink-600: #5f5b52;
+  --color-ink-400: #8c887e;
+  --color-line-200: #e6e1d6;
+  --color-on-dark: #ffffff;
+  --color-on-dark-muted: #c9d3cf;
+  --color-on-dark-line: #2c5a50;
+  /* Image placeholder gradient stops */
+  --color-photo-light: #cfc6b4;
+  --color-photo-dark: #a89f8c;
+
+  --font-serif: "Lora Variable", ui-serif, Georgia, serif;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --animate-marquee: marquee 40s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-ink-600);
+    background: var(--color-white);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-serif);
+    color: var(--color-ink-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-800);
+    outline-offset: 2px;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: var(--color-gold-500);
+  }
+}
+
+/* Scroll reveal: hidden state only applies when JS is present. */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 700ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay, 0ms),
+    transform 700ms cubic-bezier(0.2, 0.7, 0.2, 1) var(--delay, 0ms);
+}
+
+html.js [data-reveal="scale"] {
+  transform: scale(1.04);
+}
+
+html.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Accordion: animate height/opacity of native <details> content. */
+.faq-item {
+  interpolate-size: allow-keywords;
+}
+
+.faq-item::details-content {
+  height: 0;
+  opacity: 0;
+  overflow: clip;
+  transition:
+    height 300ms ease,
+    opacity 300ms ease,
+    content-visibility 300ms allow-discrete;
+}
+
+.faq-item[open]::details-content {
+  height: auto;
+  opacity: 1;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .marquee-track {
+    animation: none !important;
+  }
+
+  .faq-item::details-content {
+    transition: none;
+  }
+}

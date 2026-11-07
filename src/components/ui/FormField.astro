@@ -1,0 +1,85 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  placeholder: string;
+  as?: 'input' | 'select' | 'textarea';
+  type?: string;
+  options?: string[];
+  required?: boolean;
+  autocomplete?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  placeholder,
+  as = 'input',
+  type = 'text',
+  options = [],
+  required = false,
+  autocomplete,
+} = Astro.props;
+
+const control =
+  'border-line-200 text-ink-900 placeholder:text-ink-400 focus:border-brand-800 focus:ring-brand-800 w-full rounded-md border bg-white px-4 text-base outline-none focus:ring-1';
+---
+
+<div>
+  <label for={id} class="text-ink-900 mb-2 block text-sm font-medium">{label}</label>
+  {
+    as === 'input' && (
+      <input
+        id={id}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        required={required}
+        autocomplete={autocomplete}
+        class:list={[control, 'h-12']}
+      />
+    )
+  }
+  {
+    as === 'select' && (
+      <div class="relative">
+        <select
+          id={id}
+          name={name}
+          required={required}
+          class:list={[control, 'h-12 appearance-none pr-11 invalid:text-ink-400']}
+        >
+          <option value="" disabled selected>
+            {placeholder}
+          </option>
+          {options.map((option) => (
+            <option value={option} class="text-ink-900">
+              {option}
+            </option>
+          ))}
+        </select>
+        <Icon
+          name="chevron-down"
+          size={18}
+          class="text-ink-600 pointer-events-none absolute top-1/2 right-4 -translate-y-1/2"
+        />
+      </div>
+    )
+  }
+  {
+    as === 'textarea' && (
+      <textarea
+        id={id}
+        name={name}
+        placeholder={placeholder}
+        required={required}
+        rows="4"
+        class:list={[control, 'min-h-32 resize-y py-3']}
+      />
+    )
+  }
+</div>

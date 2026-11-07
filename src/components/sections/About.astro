@@ -1,0 +1,52 @@
+---
+import Button from '../ui/Button.astro';
+import Container from '../ui/Container.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { Link, Stat } from '../../data/content';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  cta: Link;
+  paragraphs: string[];
+  stats: Stat[];
+}
+
+const { eyebrow, title, cta, paragraphs, stats } = Astro.props;
+---
+
+<section id="sobre-mi" aria-labelledby="about-title" class="bg-white py-20 lg:py-28">
+  <Container class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+    <div>
+      <SectionHeading id="about-title" eyebrow={eyebrow} title={title} class="max-w-[34rem]" />
+      <div data-reveal class="mt-8">
+        <Button href={cta.href}>{cta.label}</Button>
+      </div>
+    </div>
+
+    <div>
+      <div class="space-y-6 text-base leading-[1.65]">
+        {paragraphs.map((p) => <p data-reveal>{p}</p>)}
+      </div>
+      <dl class="mt-10 grid grid-cols-3">
+        {
+          stats.map((stat, i) => (
+            <div
+              data-reveal
+              class:list={['border-line-200 flex flex-col', i > 0 && 'border-l pl-4 md:pl-8']}
+            >
+              <dd
+                data-count={stat.value}
+                data-suffix={stat.suffix}
+                class="text-brand-800 order-first font-serif text-[clamp(2.25rem,3vw,3rem)] leading-none"
+              >
+                {`${stat.value}${stat.suffix}`}
+              </dd>
+              <dt class="mt-3 text-sm leading-normal">{stat.caption}</dt>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,89 @@
+---
+import Button from '../ui/Button.astro';
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import Logo from '../ui/Logo.astro';
+import type { Link } from '../../data/content';
+
+interface Props {
+  brand: string;
+  nav: Link[];
+  contactLabel: string;
+  contactHref: string;
+  phone: string;
+  phoneHref: string;
+}
+
+const { brand, nav, contactLabel, contactHref, phone, phoneHref } = Astro.props;
+---
+
+<!-- Inline desktop mode starts at xl so the nav never collides with the photo column. -->
+<header class="bg-cream-100 relative z-30 xl:absolute xl:inset-x-0 xl:top-0 xl:bg-transparent">
+  <Container class="flex h-20 items-center justify-between xl:h-[100px]">
+    <div class="flex items-center xl:gap-8">
+      <Logo name={brand} />
+      <nav aria-label="Principal" class="hidden items-center gap-1 xl:flex">
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class="text-ink-900 hover:text-brand-700 flex min-h-11 items-center px-3 text-[15px] transition-colors"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div class="hidden items-center gap-3 xl:flex">
+      <Button variant="outline-light" href={contactHref}>{contactLabel}</Button>
+      <Button variant="light" href={phoneHref} icon="phone">{phone}</Button>
+    </div>
+
+    <button
+      type="button"
+      data-menu-button
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      aria-label="Menú"
+      class="text-brand-800 -mr-2 flex size-11 items-center justify-center rounded-md xl:hidden"
+    >
+      <span data-icon-open><Icon name="menu" size={26} /></span>
+      <span data-icon-close class="hidden"><Icon name="x" size={26} /></span>
+    </button>
+  </Container>
+
+  <div
+    id="mobile-menu"
+    data-menu
+    hidden
+    class="bg-cream-100 border-line-200 absolute inset-x-0 top-full border-t shadow-none xl:hidden"
+  >
+    <Container class="flex flex-col py-4">
+      <nav aria-label="Principal móvil" class="flex flex-col">
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class="text-ink-900 border-line-200 flex min-h-12 items-center border-b text-base"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="mt-5 flex flex-col gap-3 sm:flex-row">
+        <Button href={contactHref} class="sm:flex-1">{contactLabel}</Button>
+        <Button
+          variant="outline-light"
+          href={phoneHref}
+          icon="phone"
+          class="border-brand-800 text-brand-800 hover:bg-brand-800/5 sm:flex-1"
+        >
+          {phone}
+        </Button>
+      </div>
+    </Container>
+  </div>
+</header>

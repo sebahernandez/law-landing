@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  variant?: 'primary' | 'outline-light' | 'light' | 'link' | 'block';
+  href?: string;
+  type?: 'button' | 'submit';
+  icon?: 'phone';
+  class?: string;
+}
+
+const { variant = 'primary', href, type = 'button', icon, class: className, ...rest } = Astro.props;
+
+const base =
+  'inline-flex min-h-11 items-center justify-center gap-2 rounded-md font-medium transition-colors duration-200';
+
+const variants = {
+  primary: 'bg-brand-800 px-6 py-3.5 text-[15px] text-white hover:bg-brand-700',
+  block: 'w-full bg-brand-800 px-6 py-3.5 text-[15px] text-white hover:bg-brand-700',
+  'outline-light':
+    'border border-white px-6 py-3 text-[15px] text-white hover:bg-white/10 on-dark',
+  light: 'bg-white px-6 py-3 text-[15px] text-brand-800 hover:bg-cream-100',
+  link: 'group px-0 py-3 text-[15px] text-brand-800 rounded-none',
+} as const;
+
+const Tag = href ? 'a' : 'button';
+---
+
+<Tag
+  {...(href ? { href } : { type })}
+  {...rest}
+  class:list={[base, variants[variant], className]}
+>
+  {icon && <Icon name={icon} size={18} />}
+  <slot />
+  {
+    variant === 'link' && (
+      <Icon
+        name="arrow-right"
+        size={18}
+        class="transition-transform duration-200 group-hover:translate-x-1"
+      />
+    )
+  }
+</Tag>

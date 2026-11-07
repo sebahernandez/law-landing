@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/sections/Header.astro';
+import Hero from '../components/sections/Hero.astro';
+import Marquee from '../components/sections/Marquee.astro';
+import About from '../components/sections/About.astro';
+import PracticeAreas from '../components/sections/PracticeAreas.astro';
+import Process from '../components/sections/Process.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Faq from '../components/sections/Faq.astro';
+import Contact from '../components/sections/Contact.astro';
+import Footer from '../components/sections/Footer.astro';
+import * as content from '../data/content';
+---
+
+<Layout>
+  <Header brand={content.brand} {...content.header} />
+  <main id="main">
+    <Hero {...content.hero} />
+    <Marquee {...content.marquee} />
+    <About {...content.about} />
+    <PracticeAreas {...content.practiceAreas} />
+    <Process {...content.process} />
+    <Testimonials {...content.testimonials} />
+    <Faq {...content.faq} />
+    <Contact {...content.contact} />
+  </main>
+  <Footer brand={content.brand} {...content.footer} />
+</Layout>

@@ -1,0 +1,49 @@
+---
+import Container from '../ui/Container.astro';
+import Icon from '../ui/Icon.astro';
+import IconTile from '../ui/IconTile.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import type { PracticeArea } from '../../data/content';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  cards: PracticeArea[];
+}
+
+const { eyebrow, title, lead, cards } = Astro.props;
+---
+
+<section id="areas" aria-labelledby="areas-title" class="bg-paper-50 py-20 lg:py-28">
+  <Container>
+    <SectionHeading
+      id="areas-title"
+      eyebrow={eyebrow}
+      title={title}
+      lead={lead}
+      align="center"
+      class="max-w-[48rem]"
+    />
+    <div class="mt-12 grid gap-4 md:grid-cols-2 md:gap-5 lg:mt-16 lg:grid-cols-3">
+      {
+        cards.map((card) => (
+          <div data-reveal class="flex">
+            <article class="group border-line-200 hover:border-brand-800/40 w-full rounded-lg border bg-white p-8 transition duration-200 hover:-translate-y-1">
+              <div class="flex items-start justify-between">
+                <IconTile icon={card.icon} />
+                <Icon
+                  name="arrow-up-right"
+                  size={18}
+                  class="text-brand-800 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </div>
+              <h3 class="text-brand-800 mt-8 text-xl leading-[1.3] font-semibold">{card.title}</h3>
+              <p class="mt-4 text-base leading-[1.65]">{card.body}</p>
+            </article>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</section>

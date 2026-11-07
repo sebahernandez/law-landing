@@ -1,0 +1,31 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+// Four copies; the track shifts by -50% (two copies) so the loop is seamless
+// even on very wide viewports.
+const copies = [0, 1, 2, 3];
+---
+
+<section aria-label="Áreas de práctica destacadas" class="bg-brand-800 overflow-hidden">
+  <div class="marquee-track animate-marquee flex w-max py-8 hover:[animation-play-state:paused] lg:py-11">
+    {
+      copies.map((copy) => (
+        <ul class="flex shrink-0 items-center" aria-hidden={copy > 0 ? 'true' : undefined}>
+          {items.map((item) => (
+            <li class="flex items-center whitespace-nowrap">
+              <span class="px-5 font-serif text-[clamp(1.25rem,2vw,1.875rem)] leading-none text-white md:px-8">
+                {item}
+              </span>
+              <span class="text-gold-500 text-xl leading-none" aria-hidden="true">
+                ✱
+              </span>
+            </li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,52 @@
+---
+import Button from '../ui/Button.astro';
+import Eyebrow from '../ui/Eyebrow.astro';
+import ImagePlaceholder from '../ui/ImagePlaceholder.astro';
+import type { Link } from '../../data/content';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead: string;
+  primaryCta: Link;
+  secondaryCta: Link;
+  imageLabel: string;
+}
+
+const { eyebrow, title, lead, primaryCta, secondaryCta, imageLabel } = Astro.props;
+---
+
+<section
+  id="inicio"
+  aria-labelledby="hero-title"
+  class="bg-cream-100 grid lg:min-h-[720px] lg:grid-cols-[58fr_42fr]"
+>
+  <div
+    class="order-last flex flex-col justify-end px-5 py-12 md:px-8 lg:order-first lg:py-14 lg:pr-12 lg:pl-[max(2.5rem,calc((100vw-1280px)/2+2.5rem))] xl:pt-40"
+  >
+    <Eyebrow data-reveal>{eyebrow}</Eyebrow>
+    <h1
+      id="hero-title"
+      data-reveal
+      class="mt-6 max-w-[44rem] text-[clamp(2.25rem,4vw+1rem,3.5rem)] leading-[1.1] font-normal tracking-[-0.01em] text-balance"
+    >
+      {title}
+    </h1>
+    <p data-reveal class="text-ink-600 mt-6 max-w-[34rem] text-lg leading-[1.65]">{lead}</p>
+    <div data-reveal class="mt-8 flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:gap-6">
+      <Button href={primaryCta.href}>{primaryCta.label}</Button>
+      <Button variant="link" href={secondaryCta.href} class="justify-center sm:justify-start">
+        {secondaryCta.label}
+      </Button>
+    </div>
+  </div>
+
+  <div class="overflow-hidden">
+    <div data-reveal="scale" class="h-full">
+      <ImagePlaceholder
+        label={imageLabel}
+        class="aspect-[4/5] max-h-[70vh] w-full lg:aspect-auto lg:h-full lg:max-h-none"
+      />
+    </div>
+  </div>
+</section>

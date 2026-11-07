@@ -1,0 +1,40 @@
+---
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  id: string;
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  align?: 'left' | 'center';
+  tone?: 'light' | 'dark';
+  class?: string;
+}
+
+const { id, eyebrow, title, lead, align = 'left', tone = 'light', class: className } = Astro.props;
+const dark = tone === 'dark';
+---
+
+<div class:list={[align === 'center' && 'mx-auto text-center', className]}>
+  <Eyebrow tone={tone} data-reveal>{eyebrow}</Eyebrow>
+  <h2
+    id={id}
+    data-reveal
+    class:list={[
+      'mt-4 text-[clamp(2rem,3vw+1rem,2.75rem)] leading-[1.15] font-normal tracking-[-0.01em] text-balance',
+      dark && 'text-on-dark',
+    ]}
+  >
+    {title}
+  </h2>
+  {
+    lead && (
+      <p
+        data-reveal
+        class:list={['mt-5 text-lg leading-[1.65]', dark ? 'text-on-dark-muted' : 'text-ink-600']}
+      >
+        {lead}
+      </p>
+    )
+  }
+</div>

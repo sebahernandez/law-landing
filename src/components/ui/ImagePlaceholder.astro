@@ -1,0 +1,21 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  label: string;
+  class?: string;
+}
+
+const { label, class: className } = Astro.props;
+---
+
+<div
+  role="img"
+  aria-label={label}
+  class:list={[
+    'from-photo-light to-photo-dark flex items-center justify-center bg-gradient-to-br text-white/70',
+    className,
+  ]}
+>
+  <Icon name="user" size={96} class="size-24 opacity-80" />
+</div>

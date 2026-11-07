@@ -1,0 +1,131 @@
+---
+import '@fontsource-variable/lora';
+import '@fontsource-variable/lora/wght-italic.css';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Serrano Abogados | Abogado independiente en familia, penal y civil',
+  description = 'Abogado independiente en derecho de familia, defensa penal y demandas civiles. Agenda una consulta gratuita y recibe representación legal personal y directa.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="es_CL" />
+    <meta name="theme-color" content="#0f3d35" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a
+      href="#main"
+      class="focus:bg-brand-800 sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:rounded-md focus:px-4 focus:py-3 focus:text-white"
+    >
+      Saltar al contenido
+    </a>
+    <slot />
+
+    <script>
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Mobile menu
+      const menuButton = document.querySelector<HTMLButtonElement>('[data-menu-button]');
+      const menu = document.querySelector<HTMLElement>('[data-menu]');
+      if (menuButton && menu) {
+        const setOpen = (open: boolean) => {
+          menuButton.setAttribute('aria-expanded', String(open));
+          menu.hidden = !open;
+          menuButton.querySelector('[data-icon-open]')?.classList.toggle('hidden', open);
+          menuButton.querySelector('[data-icon-close]')?.classList.toggle('hidden', !open);
+        };
+        menuButton.addEventListener('click', () =>
+          setOpen(menuButton.getAttribute('aria-expanded') !== 'true'),
+        );
+        menu.addEventListener('click', (e) => {
+          if ((e.target as HTMLElement).closest('a')) setOpen(false);
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && menuButton.getAttribute('aria-expanded') === 'true') {
+            setOpen(false);
+            menuButton.focus();
+          }
+        });
+      }
+
+      // Stagger siblings by 80ms
+      const revealEls = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'));
+      const groups = new Map<Element | null, number>();
+      revealEls.forEach((el) => {
+        const parent = el.parentElement;
+        const index = groups.get(parent) ?? 0;
+        el.style.setProperty('--delay', `${index * 80}ms`);
+        groups.set(parent, index + 1);
+      });
+
+      // Stat counters
+      const animateCount = (el: HTMLElement) => {
+        const target = Number(el.dataset.count);
+        const suffix = el.dataset.suffix ?? '';
+        if (reduceMotion || Number.isNaN(target)) return;
+        const duration = 1400;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = `${Math.round(target * eased)}${suffix}`;
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        el.textContent = `0${suffix}`;
+        requestAnimationFrame(tick);
+      };
+
+      const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'));
+
+      if (!('IntersectionObserver' in window)) {
+        revealEls.forEach((el) => el.classList.add('is-visible'));
+      } else {
+        const revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                revealObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+        );
+        revealEls.forEach((el) => revealObserver.observe(el));
+
+        const countObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateCount(entry.target as HTMLElement);
+                countObserver.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.6 },
+        );
+        counters.forEach((el) => countObserver.observe(el));
+      }
+    </script>
+  </body>
+</html>
