@@ -87,7 +87,7 @@ export const hero = {
   lead: 'Representación legal personal y directa en asuntos de familia, defensa penal y demandas civiles. Un solo abogado, comprometido con tu caso desde la primera reunión hasta la sentencia final.',
   primaryCta: { label: 'Agenda una consulta gratuita', href: '#contacto' },
   secondaryCta: { label: 'Ver áreas de práctica', href: '#areas' },
-  imageLabel: 'Retrato del abogado — imagen pendiente',
+  imageLabel: 'Abogado sentado en su escritorio frente a una biblioteca de libros jurídicos',
 };
 
 export const marquee = {

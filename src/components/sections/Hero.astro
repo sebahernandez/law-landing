@@ -1,7 +1,8 @@
 ---
 import Button from '../ui/Button.astro';
 import Eyebrow from '../ui/Eyebrow.astro';
-import ImagePlaceholder from '../ui/ImagePlaceholder.astro';
+import { Image } from 'astro:assets';
+import lawyerPortrait from '../../assets/abogado-chile.webp';
 import type { Link } from '../../data/content';
 
 interface Props {
@@ -41,11 +42,16 @@ const { eyebrow, title, lead, primaryCta, secondaryCta, imageLabel } = Astro.pro
     </div>
   </div>
 
-  <div class="overflow-hidden">
-    <div data-reveal="scale" class="h-full">
-      <ImagePlaceholder
-        label={imageLabel}
-        class="aspect-[4/5] max-h-[70vh] w-full lg:aspect-auto lg:h-full lg:max-h-none"
+  <div class="relative overflow-hidden">
+    <div data-reveal="scale" class="lg:absolute lg:inset-0">
+      <Image
+        src={lawyerPortrait}
+        alt={imageLabel}
+        widths={[480, 768, 1122]}
+        sizes="(min-width: 1024px) 42vw, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="aspect-[4/5] max-h-[70vh] w-full object-cover object-[50%_25%] lg:aspect-auto lg:h-full lg:max-h-none"
       />
     </div>
   </div>

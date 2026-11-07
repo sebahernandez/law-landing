@@ -27,7 +27,7 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:locale" content="es_CL" />
     <meta name="theme-color" content="#0f3d35" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}/favicon.svg`.replace(/\/+/g, "/")} />
     <script is:inline>
       document.documentElement.classList.add('js');
     </script>
