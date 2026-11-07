@@ -70,7 +70,7 @@ export const phone = '+56 9 1234 5678';
 export const header = {
   nav: [
     { label: 'Inicio', href: '#inicio' },
-    { label: 'Áreas de práctica', href: '#areas' },
+    { label: 'Especialidades', href: '#areas' },
     { label: 'Sobre mí', href: '#sobre-mi' },
     { label: 'Proceso', href: '#proceso' },
     { label: 'Contacto', href: '#contacto' },
@@ -86,7 +86,7 @@ export const hero = {
   title: 'Tu versión de los hechos merece una defensa sólida',
   lead: 'Representación legal personal y directa en asuntos de familia, defensa penal y demandas civiles. Un solo abogado, comprometido con tu caso desde la primera reunión hasta la sentencia final.',
   primaryCta: { label: 'Agenda una consulta gratuita', href: '#contacto' },
-  secondaryCta: { label: 'Ver áreas de práctica', href: '#areas' },
+  secondaryCta: { label: 'Ver especialidades', href: '#areas' },
   imageLabel: 'Abogado sentado en su escritorio frente a una biblioteca de libros jurídicos',
 };
 
@@ -117,7 +117,7 @@ export const about = {
 };
 
 export const practiceAreas = {
-  eyebrow: 'Áreas de práctica',
+  eyebrow: 'Somos especialistas en',
   title: 'Orientación especializada cuando lo que está en juego es personal',
   lead: 'Tres áreas principales, un abogado que las conoce a fondo.',
   cards: [
@@ -269,7 +269,7 @@ export const footer = {
     'Abogado independiente en derecho de familia, defensa penal y litigios civiles. Habilitado para ejercer ante todos los tribunales del país.',
   columns: [
     {
-      title: 'Áreas de práctica',
+      title: 'Especialidades',
       links: [
         { label: 'Derecho de familia', href: '#areas' },
         { label: 'Defensa penal', href: '#areas' },

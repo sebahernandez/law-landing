@@ -128,7 +128,7 @@ organization: `ui/` atoms, `sections/` organisms):
 
 - **Button** — variants:
   - `primary`: `bg-brand-800 text-white`, hover `bg-brand-700`, `rounded-md`, `px-6 py-3.5`, sans 500 15px.
-  - `outline-light`: transparent, 1px white border, white text (header CTA over photo on desktop).
+  - `outline-light`: transparent, 1px white border, white text (secondary CTAs over dark or photo backgrounds).
   - `light`: white background, `text-brand-800`, leading phone icon (header phone).
   - `link`: no background, `text-brand-800` 500, trailing arrow `→` that shifts 4px on hover.
   - `block`: full-width primary (form submit).
@@ -207,8 +207,8 @@ language is `es`.
 - **WHEN** the Header section renders
 - **THEN** it displays exactly this copy:
   - Logo: "Serrano Abogados"
-  - Nav: "Inicio", "Áreas de práctica", "Sobre mí", "Proceso", "Contacto"
-  - CTAs: "Contáctanos" (outline), "+56 9 1234 5678" (light, phone icon)
+  - Nav: "Inicio", "Especialidades", "Sobre mí", "Proceso", "Contacto"
+  - CTAs: "Contáctanos" (primary: `brand-800` background, white text), "+56 9 1234 5678" (light, phone icon)
 
 #### Scenario: Hero (`bg-cream-100`)
 - **WHEN** the Hero section renders
@@ -216,7 +216,7 @@ language is `es`.
   - Eyebrow: "Abogado independiente · Familia, penal y civil"
   - H1: "Tu versión de los hechos merece una defensa sólida"
   - Lead: "Representación legal personal y directa en asuntos de familia, defensa penal y demandas civiles. Un solo abogado, comprometido con tu caso desde la primera reunión hasta la sentencia final."
-  - CTAs: "Agenda una consulta gratuita" (primary → #contacto), "Ver áreas de práctica" (link → #areas)
+  - CTAs: "Agenda una consulta gratuita" (primary → #contacto), "Ver especialidades" (link → #areas)
 
 #### Scenario: Marquee (`bg-brand-800`, white serif, gold stars)
 - **WHEN** the Marquee section renders
@@ -236,7 +236,7 @@ language is `es`.
 #### Scenario: Practice areas (`id="areas"`, `bg-paper-50`, centered heading)
 - **WHEN** the Practice areas section renders
 - **THEN** it displays exactly this copy:
-  - Eyebrow: "Áreas de práctica"
+  - Eyebrow: "Somos especialistas en"
   - H2: "Orientación especializada cuando lo que está en juego es personal"
   - Lead: "Tres áreas principales, un abogado que las conoce a fondo."
   - Cards:
@@ -297,7 +297,7 @@ language is `es`.
 - **WHEN** the Footer section renders
 - **THEN** it displays exactly this copy:
   - Brand: logo + "Abogado independiente en derecho de familia, defensa penal y litigios civiles. Habilitado para ejercer ante todos los tribunales del país."
-  - "Áreas de práctica": "Derecho de familia", "Defensa penal", "Demandas civiles", "Mediación"
+  - "Especialidades": "Derecho de familia", "Defensa penal", "Demandas civiles", "Mediación"
   - "Estudio": "Sobre mí", "Proceso", "Testimonios", "Contacto"
   - "Legal": "Política de privacidad", "Términos de uso", "Aviso legal"
   - Bottom bar: "© 2026 Serrano Abogados. Todos los derechos reservados." · "Publicidad de servicios legales. Resultados anteriores no garantizan un resultado similar."
